@@ -1,0 +1,33 @@
+use std::io;
+
+fn shortest_word(sentence: &str) -> Option<&str> {
+    let mut shortest: Option<&str> = None;
+
+    for word in sentence.split_whitespace() {
+        shortest = match shortest {
+            Some(shortest_word) => {
+                if word.len() < shortest_word.len() {
+                    Some(word)
+                } else {
+                    Some(shortest_word)
+                }
+            }
+            None => Some(word),
+        };
+    }
+
+    shortest
+}
+
+fn main() {
+    println!("Enter a string of words:");
+    let mut input_string = String::new();
+    io::stdin().read_line(&mut input_string).expect("Failed to read line");
+
+    let input_string = input_string.trim(); // Remove trailing newline
+
+    match shortest_word(&input_string) {
+        Some(shortest) => println!("The shortest word is: {}", shortest),
+        None => println!("No words found in the string."),
+    }
+}
