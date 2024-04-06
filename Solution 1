@@ -1,0 +1,36 @@
+use std::io;
+
+fn is_palindrome(input: &str) -> bool {
+    let reversed: String = input.chars().rev().collect();
+    input == reversed
+}
+
+fn main() {
+    loop {
+        println!("Enter a string:");
+
+        let mut input_string = String::new();
+        io::stdin().read_line(&mut input_string)
+            .expect("Failed to read line");
+
+        let input_string = input_string.trim(); // Remove trailing newline
+
+        if is_palindrome(&input_string) {
+            println!("'{}' is a palindrome.", input_string);
+        } else {
+            println!("'{}' is not a palindrome.", input_string);
+        }
+
+        println!("Do you want to continue? (y/n)");
+
+        let mut continue_input = String::new();
+        io::stdin().read_line(&mut continue_input)
+            .expect("Failed to read line");
+
+        let continue_choice = continue_input.trim().to_lowercase();
+
+        if continue_choice != "y" {
+            break;
+        }
+    }
+}
